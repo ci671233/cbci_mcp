@@ -34,26 +34,6 @@ print(answer)
 client.stop_server()
 ```
 
-### 다양한 Setup 방식
-
-```python
-from cbci_mcp import CBCIMCPClient
-
-client = CBCIMCPClient()
-client.start_server()
-
-# 방법 1: 기본 파일들 사용
-client.setup()
-
-# 방법 2: 위치 인수
-client.setup("config.yaml", "questions.yaml", "schema.yaml")
-
-# 방법 3: 키워드 인수 (권장)
-client.setup(config="my_config.yaml", questions="my_questions.yaml", schema="my_schema.yaml")
-
-client.stop_server()
-```
-
 ### 설정 파일 예시
 
 #### config.yaml
