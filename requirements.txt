@@ -1,0 +1,10 @@
+# CBCI MCP (ChatBot CI) Requirements
+# Core dependencies
+openai>=1.0.0
+pandas>=1.5.0
+pyyaml>=6.0
+ibm-db>=3.1.0
+
+# Development dependencies (optional)
+build>=0.10.0
+twine>=4.0.0 

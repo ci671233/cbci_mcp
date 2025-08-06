@@ -1,0 +1,53 @@
+name: Test cbci-mcp
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e . --no-deps
+        pip install openai pandas pyyaml ibm-db
+    
+    - name: Test cbci-mcp package import
+      run: |
+        python -c "from cbci_mcp import CBCIMCPClient, CBCIMCPServer; print('✅ cbci-mcp package import successful')"
+    
+    - name: Test MCP client functionality
+      run: |
+        python -c "
+        from cbci_mcp import CBCIMCPClient
+        client = CBCIMCPClient()
+        print('✅ CBCI MCP client creation successful')
+        "
+    
+    - name: Test server functionality
+      run: |
+        python -c "
+        from cbci_mcp import CBCIMCPServer
+        server = CBCIMCPServer()
+        print('✅ CBCI MCP server creation successful')
+        "
+    
+    - name: Build cbci-mcp package
+      run: |
+        pip install build
+        python -m build 
